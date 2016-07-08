@@ -1,0 +1,24 @@
+#!/usr/bin/python
+import os,sys,argparse
+import lal
+import lalsimulation as lalsim
+import numpy
+import wave
+import waveform_common
+
+m1,m2,s1,s2,dist,secret,data,t,rate,dt = waveform_common.parse()
+
+
+rate = 4096
+dt = 1. / rate
+
+wavdata = numpy.zeros(len(data), numpy.int16)
+# Note 2e-21 is the maximum value that any of the parameter choices can give.
+wavdata[:] = data / 2e-21 * 32768
+if not secret:
+	out = wave.open("wave_%.1f_%.1f_%.2f_%.2f_%.0f.wav" % (m1,m2,s1,s2,dist), "wb")
+else:
+	out = wave.open("wave_secret_%d.wav" % (secret,), "wb")
+out.setparams((1, 4, rate, 1, "NONE", None))
+out.writeframes(wavdata)
+

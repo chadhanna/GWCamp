@@ -1,0 +1,21 @@
+#!/usr/bin/python
+import os,sys,argparse
+import lal
+import lalsimulation as lalsim
+import numpy
+import wave
+import waveform_common
+import h5py
+
+m1,m2,s1,s2,dist,secret,data,t,rate,dt = waveform_common.parse()
+
+
+if not secret:
+	f = h5py.File("wave_%.1f_%.1f_%.2f_%.2f_%.0f.hd5" % (m1,m2,s1,s2,dist), "w")
+else:
+	f = h5py.File("wave_secret_%d.hd5" % (secret,), "w")
+dset1 = f.create_dataset("waveform", (len(t),), dtype='f')
+dset1[:] = data 
+dset2 = f.create_dataset("time", (len(t),), dtype='f')
+dset2[:] = t
+f.close()
