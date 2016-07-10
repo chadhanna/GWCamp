@@ -15,12 +15,12 @@ def parse():
 	for arg in ("mass1", "mass2"):
 		if getattr(args,arg) < 5. or getattr(args,arg) > 30.:
 			raise ValueError("Please choose masses between 5 and 30 Solar Masses")
-	for arg in ("spin1", "spin2"):
-		if getattr(args,arg) < -0.95 or getattr(args,arg) > 0.95:
-			raise ValueError("Please choose spins between -0.95 and 0.95")
+	#for arg in ("spin1", "spin2"):
+	#	if getattr(args,arg) < -0.95 or getattr(args,arg) > 0.95:
+	#		raise ValueError("Please choose spins between -0.95 and 0.95")
 	if args.distance > 1000 or args.distance < 300:
 		raise ValueError("Please choose a distance between 300 and 1000 Mpc")
-	if arg.mass1 < arg.mass2:
+	if args.mass1 < args.mass2:
 		raise ValueError("Please choose mass1 to be greater than or equal to mass2")
 
 	dt = 1. / 4096.
