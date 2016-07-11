@@ -7,7 +7,7 @@ import wave
 import waveform_common
 import h5py
 
-m1,m2,s1,s2,dist,secret,data,t,rate,dt = waveform_common.parse()
+m1,m2,s1,s2,dist,secret,data,t,rate,dt,noise_amp,max_amp = waveform_common.parse()
 
 
 if not secret:

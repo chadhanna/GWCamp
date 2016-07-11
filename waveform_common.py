@@ -36,12 +36,14 @@ def parse():
 	rate = 4096
 	dt = 1. / rate
 
-	# 2 seconds
-	t = numpy.arange(2 * rate) * dt
-	data = numpy.zeros(8192)
-	if len(hplus.data.data) > 8192:
-		data[:] = hplus.data.data[-8192:]
+	# 4 seconds
+	t = numpy.arange(4 * rate) * dt
+	data = numpy.zeros(4 * rate)
+	if len(hplus.data.data) > 3*rate:
+		data[:-rate] = hplus.data.data[-3*rate:]
 	else:
-		data[-len(hplus.data.data):] = hplus.data.data
+		data[-len(hplus.data.data)-rate:-rate] = hplus.data.data
 
-	return m1,m2,s1,s2,dist,args.secret,data,t,rate,dt
+	noise_amp = 2e-22
+	max_amp = 3e-21
+	return m1,m2,s1,s2,dist,args.secret,data,t,rate,dt,noise_amp,max_amp
