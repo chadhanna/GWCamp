@@ -1,7 +1,7 @@
-http://software.ligo.org/lscsoft/scientific/7.2/x86_64/production/lscsoft-production-config-1.3-1.el7.noarch.rpm
+wget http://software.ligo.org/lscsoft/scientific/7.2/x86_64/production/lscsoft-production-config-1.3-1.el7.noarch.rpm
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo rpm -ivh epel-release-latest-7.noarch.rpm
 sudo rpm -ivh lscsoft-production-config-1.3-1.el7.noarch.rpm
-sudo yum install h5py fftw fftw-devel gsl-devel hdf5 hdf5
+sudo yum install h5py texlive python-matplotlib fftw fftw-devel gsl-devel hdf5 hdf5
 sudo yum install lal.x86_64 lal-debuginfo.x86_64 lal-devel.x86_64 lal-python.x86_64 lalsimulation.x86_64 lalsimulation-debuginfo.x86_64 lalsimulation-devel.x86_64 lalsimulation-python.x86_64
  
