@@ -36,7 +36,7 @@ pylab.ylabel("$\mathrm{strain}$")
 fig.tight_layout()
 pylab.grid()
 if not secret:
-	pylab.savefig("wave_%.1f_%.1f_%.2f_%.2f_%.0f.pdf" % (m1,m2,s1,s2,dist))
+	pylab.savefig("wave_noise_%.1f_%.1f_%.2f_%.2f_%.0f.pdf" % (m1,m2,s1,s2,dist))
 else:
-	pylab.savefig("wave_secret_%d.pdf" % (secret))
+	pylab.savefig("wave_noise_secret_%d.pdf" % (secret))
 

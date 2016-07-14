@@ -1,0 +1,22 @@
+#!/usr/bin/python
+import os,sys,argparse
+import lal
+import lalsimulation as lalsim
+import numpy
+import wave
+import waveform_common
+import h5py
+
+# FIXME don't hard code these values
+rate = 4096
+dur = 4
+noise_amp = 2e-22
+
+t = numpy.arange(rate * dur) / (1.*rate)
+data = numpy.random.randn(rate * dur)*noise_amp
+f = h5py.File("noise.hd5", "w")
+dset1 = f.create_dataset("noise", (len(t),), dtype='f')
+dset1[:] = data 
+dset2 = f.create_dataset("time", (len(t),), dtype='f')
+dset2[:] = t
+f.close()
