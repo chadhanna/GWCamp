@@ -3,6 +3,7 @@ import sys
 import pylab
 import h5py
 import numpy
+import scipy
 
 N = len(sys.argv[1:])
 
@@ -12,13 +13,12 @@ data = numpy.array(f["data"])
 f.close
 for arg in sys.argv[2:]:
 	f = h5py.File(arg,"r")
-	data += numpy.array(f["data"])
+	wave = numpy.array(f["data"])
 	f.close()
 
-data /= N
-f = h5py.File("average.hd5", "w")
-dset1 = f.create_dataset("data", (len(time),), dtype='f')
-dset1[:] = data 
-dset2 = f.create_dataset("time", (len(time),), dtype='f')
-dset2[:] = time
-f.close()
+correlation = numpy.real(scipy.ifft(numpy.conj(scipy.fft(wave))*scipy.fft(data)))
+
+ix = numpy.argmax(numpy.abs(correlation))
+print correlation[ix]
+
+
