@@ -4,17 +4,21 @@ import pylab
 import h5py
 import numpy
 import scipy
+import argparse
 
-N = len(sys.argv[1:])
+parser = argparse.ArgumentParser(description="This program correlates a template waveform with a dataset.")
+parser.add_argument("--template", help = "template waveoform e.g., wave_10.0_10.0_0.00_0.00_300.hd5")
+parser.add_argument("--data", help = "data set to filter, either noise e.g., noise_1.hd5 or a waveform in noise, e.g., wave_noise_10.0_10.0_0.00_0.00_300.hd5")
+args = parser.parse_args()
 
-f = h5py.File(sys.argv[1],"r")
+f = h5py.File(args.template,"r")
 time = numpy.array(f["time"])
 data = numpy.array(f["data"])
 f.close
-for arg in sys.argv[2:]:
-	f = h5py.File(arg,"r")
-	wave = numpy.array(f["data"])
-	f.close()
+
+f = h5py.File(args.data,"r")
+wave = numpy.array(f["data"])
+f.close()
 
 correlation = numpy.real(scipy.ifft(numpy.conj(scipy.fft(wave))*scipy.fft(data)))
 
