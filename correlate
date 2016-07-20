@@ -23,6 +23,6 @@ f.close()
 correlation = numpy.real(scipy.ifft(numpy.conj(scipy.fft(wave))*scipy.fft(data)))
 
 ix = numpy.argmax(numpy.abs(correlation))
-print correlation[ix]
+print abs(correlation[ix])
 
 
