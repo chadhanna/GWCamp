@@ -9,6 +9,7 @@ import argparse
 parser = argparse.ArgumentParser(description="This program correlates a template waveform with a dataset.")
 parser.add_argument("--template", help = "template waveoform e.g., wave_10.0_10.0_0.00_0.00_300.hd5")
 parser.add_argument("--data", help = "data set to filter, either noise e.g., noise_1.hd5 or a waveform in noise, e.g., wave_noise_10.0_10.0_0.00_0.00_300.hd5")
+parser.add_argument("--average-noise-correlation", help = "The average correlation of noisy data with the template you are looking for")
 args = parser.parse_args()
 
 f = h5py.File(args.template,"r")
@@ -23,6 +24,7 @@ f.close()
 correlation = numpy.real(scipy.ifft(numpy.conj(scipy.fft(wave))*scipy.fft(data)))
 
 ix = numpy.argmax(numpy.abs(correlation))
-print abs(correlation[ix])
-
-
+if not args.average_noise_correlation:
+	print abs(correlation[ix])
+else:
+	print abs(correlation[ix]) / float(args.average_noise_correlation)
